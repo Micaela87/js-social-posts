@@ -70,8 +70,10 @@ const likeCounters = document.getElementsByClassName('js-likes-counter'); // lik
 for (let i = 0; i < socialPosts.length; i++) {
     likeButtons[i].addEventListener('click', function() {
         console.log('mi hai cliccato');
-    
-        likeCounters[i].innerText = socialPosts[i].likes += 1;
+        socialPosts[i].likes += 1;
+        likeCounters[i].innerText = socialPosts[i].likes;
+
+        console.log(socialPosts[i]);
     })
 }
 
