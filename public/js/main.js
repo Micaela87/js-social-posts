@@ -14,8 +14,6 @@ numero di likes.
 // DOM nodes
 const postContainer = document.getElementById('container');
 
-// global variables
-
 // data to render
 const socialPosts = [
     {
@@ -64,20 +62,18 @@ for (let i = 0; i < socialPosts.length; i++) {
     }
 }
 
-const likeButtons = document.getElementsByClassName('like-button');
-const likeCounters = document.getElementsByClassName('js-likes-counter');
+// gets DOM elements just created
+const likeButtons = document.getElementsByClassName('like-button'); // like buttons
+const likeCounters = document.getElementsByClassName('js-likes-counter'); // like counters
 
-likeButtons[0].addEventListener('click', function() {
-    console.log('mi hai cliccato');
-
-    likeCounters[0].innerText = socialPosts[0].likes += 1;
-});
-
-console.log(likeCounters[0]);
-
-console.log(likeButtons[0]);
-
-console.log(socialPosts);
+// adds click event on each like button
+for (let i = 0; i < socialPosts.length; i++) {
+    likeButtons[i].addEventListener('click', function() {
+        console.log('mi hai cliccato');
+    
+        likeCounters[i].innerText = socialPosts[i].likes += 1;
+    })
+}
 
 // renders object with image
 function renderObj(obj) {
@@ -133,7 +129,7 @@ function renderObjNoImage(obj) {
             <div class="post__footer">
                 <div class="likes js-likes">
                     <div class="likes__cta">
-                        <a class="like-button  js-like-button" href="#" data-postid="1">
+                        <a class="like-button  js-like-button" data-postid="1">
                             <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                             <span class="like-button__label">Mi Piace</span>
                         </a>
