@@ -29,9 +29,16 @@ const socialPosts = [
     },
     {
         autore: 'Kirk Hammett'
+    },
+    {
+        autore: 'Pantera'
+    },
+    {
+        autore: 'Lamb of God'
     }
 ];
 
+// creates and renders dinamic objects
 for (let i = 0; i < socialPosts.length; i++) {
     let numberProfilePicture = Math.floor(Math.random() * 200) + 1;
     let numberPostPicture = Math.floor(Math.random() * 200) + 1;
@@ -42,17 +49,22 @@ for (let i = 0; i < socialPosts.length; i++) {
 
     socialUser.profilePicture = `https://unsplash.it/300/300?image=${numberProfilePicture}`;
 
-    socialUser.immagine = `https://unsplash.it/600/300?image=${numberPostPicture}`;
-
     socialUser.data = `${numberData} mesi fa`;
 
     socialUser.testo = `Placeat libero ipsa nobis ipsum quibusdam quas harum ut.Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.`;
 
     socialUser.likes = numberLikes;
 
-    renderObj(socialUser);
+    if (i < socialPosts.length - 2) {
+        socialUser.immagine = `https://unsplash.it/600/300?image=${numberPostPicture}`;
+        renderObj(socialUser);
+    } else {
+        socialUser.immagine = '';
+        renderObjNoImage(socialUser);
+    }
 }
 
+// renders object with image
 function renderObj(obj){
     postContainer.innerHTML += `
         <div class="post">
@@ -71,6 +83,38 @@ function renderObj(obj){
             <div class="post__image">
                 <img src="${obj.immagine}" alt="">
             </div>
+            <div class="post__footer">
+                <div class="likes js-likes">
+                    <div class="likes__cta">
+                        <a class="like-button  js-like-button" href="#" data-postid="1">
+                            <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
+                            <span class="like-button__label">Mi Piace</span>
+                        </a>
+                    </div>
+                    <div class="likes__counter">
+                        Piace a <b id="like-counter-1" class="js-likes-counter">${obj.likes}</b> persone
+                    </div>
+                </div> 
+            </div>            
+        </div>`;
+};
+
+// renders object without image
+function renderObjNoImage(obj) {
+    postContainer.innerHTML += `
+        <div class="post">
+            <div class="post__header">
+                <div class="post-meta">                    
+                    <div class="post-meta__icon">
+                        <img class="profile-pic" src="${obj.profilePicture}" alt="${obj.autore}">                    
+                    </div>
+                    <div class="post-meta__data">
+                        <div class="post-meta__author">${obj.autore}</div>
+                        <div class="post-meta__time">${obj.data}</div>
+                    </div>                    
+                </div>
+            </div>
+            <div class="post__text">${obj.testo}</div>
             <div class="post__footer">
                 <div class="likes js-likes">
                     <div class="likes__cta">
