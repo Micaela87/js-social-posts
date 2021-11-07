@@ -16,34 +16,27 @@ const postContainer = document.getElementById('container');
 
 // data to render
 const socialPosts = [
-    {
-        autore: 'Phil Mangione'
-    },
-    {
-        autore: 'Antony Laddaga'
-    },
-    {
-        autore: 'Phil Anselmo'
-    },
-    {
-        autore: 'Kirk Hammett'
-    },
-    {
-        autore: 'Pantera'
-    },
-    {
-        autore: 'Lamb of God'
-    }
+
 ];
 
 // creates and renders dinamic objects
-for (let i = 0; i < socialPosts.length; i++) {
+for (let i = 1; i <= 6; i++) {
+    let names = ['Angelo', 'Marco', 'Cristina', 'Eleonora', 'Francesco', 'Mariaelena'];
+    let surnames = ['Cornacchia', 'Cipriani', 'Ferloni', 'Maggi', 'Stefanelli', 'Boschi'];
+
+    let indexNames = Math.floor(Math.random() * names.length);
+    let indexSurnames = Math.floor(Math.random() * surnames.length);
+
     let numberProfilePicture = Math.floor(Math.random() * 200) + 1;
     let numberPostPicture = Math.floor(Math.random() * 200) + 1;
     let numberData = Math.floor(Math.random() * 12) + 1;
     let numberLikes = Math.floor(Math.random() * 100) + 1;
 
-    let socialUser = socialPosts[i];
+    let socialUser = {
+
+    };
+
+    socialUser.autore = names[indexNames] + ' ' + surnames[indexSurnames];
 
     socialUser.profilePicture = `https://unsplash.it/300/300?image=${numberProfilePicture}`;
 
@@ -53,27 +46,42 @@ for (let i = 0; i < socialPosts.length; i++) {
 
     socialUser.likes = numberLikes;
 
-    if (i < socialPosts.length - 2) {
+    socialUser.clicked = false; // prevents like button to be clicked more than once
+
+    if (i <= 4) {
         socialUser.immagine = `https://unsplash.it/600/300?image=${numberPostPicture}`;
-        renderObj(socialUser);
     } else {
         socialUser.immagine = '';
-        renderObjNoImage(socialUser);
     }
+
+    socialPosts.push(socialUser);
+    renderObj(socialUser);
 }
 
 // gets DOM elements just created
 const likeButtons = document.getElementsByClassName('like-button'); // like buttons
 const likeCounters = document.getElementsByClassName('js-likes-counter'); // like counters
+const imgContainer = document.getElementsByClassName('post__image'); // img container
+
+console.log(socialPosts);
+
+console.log(imgContainer);
+
+// removes img tag if img is an empty string
+for (let i = 0; i < socialPosts.length; i++) {
+    if (socialPosts[i].immagine === '') {
+        imgContainer[i].removeChild(imgContainer[i].children[0]);
+    }
+}
 
 // adds click event on each like button
 for (let i = 0; i < socialPosts.length; i++) {
     likeButtons[i].addEventListener('click', function() {
-        console.log('mi hai cliccato');
-        socialPosts[i].likes += 1;
-        likeCounters[i].innerText = socialPosts[i].likes;
-
-        console.log(socialPosts[i]);
+        if (socialPosts[i].clicked === false) {
+                socialPosts[i].likes += 1;
+                likeCounters[i].innerText = socialPosts[i].likes;
+                socialPosts[i].clicked = true;
+        }
     })
 }
 
@@ -111,35 +119,3 @@ function renderObj(obj) {
             </div>            
         </div>`;
 };
-
-// renders object without image
-function renderObjNoImage(obj) {
-    postContainer.innerHTML += `
-        <div class="post">
-            <div class="post__header">
-                <div class="post-meta">                    
-                    <div class="post-meta__icon">
-                        <img class="profile-pic" src="${obj.profilePicture}" alt="${obj.autore}">                    
-                    </div>
-                    <div class="post-meta__data">
-                        <div class="post-meta__author">${obj.autore}</div>
-                        <div class="post-meta__time">${obj.data}</div>
-                    </div>                    
-                </div>
-            </div>
-            <div class="post__text">${obj.testo}</div>
-            <div class="post__footer">
-                <div class="likes js-likes">
-                    <div class="likes__cta">
-                        <a class="like-button  js-like-button" data-postid="1">
-                            <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
-                            <span class="like-button__label">Mi Piace</span>
-                        </a>
-                    </div>
-                    <div class="likes__counter">
-                        Piace a <b id="like-counter-1" class="js-likes-counter">${obj.likes}</b> persone
-                    </div>
-                </div> 
-            </div>            
-        </div>`;
-}
