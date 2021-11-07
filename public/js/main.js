@@ -36,22 +36,22 @@ for (let i = 1; i <= 6; i++) {
 
     };
 
-    socialUser.autore = names[indexNames] + ' ' + surnames[indexSurnames];
+    socialUser.author = names[indexNames] + ' ' + surnames[indexSurnames];
 
     socialUser.profilePicture = `https://unsplash.it/300/300?image=${numberProfilePicture}`;
 
     socialUser.data = `${numberData} mesi fa`;
 
-    socialUser.testo = `Placeat libero ipsa nobis ipsum quibusdam quas harum ut.Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.`;
+    socialUser.text = `Placeat libero ipsa nobis ipsum quibusdam quas harum ut.Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.`;
 
     socialUser.likes = numberLikes;
 
     socialUser.clicked = false; // prevents like button to be clicked more than once
 
     if (i <= 4) {
-        socialUser.immagine = `https://unsplash.it/600/300?image=${numberPostPicture}`;
+        socialUser.image = `https://unsplash.it/600/300?image=${numberPostPicture}`;
     } else {
-        socialUser.immagine = '';
+        socialUser.image = '';
     }
 
     socialPosts.push(socialUser);
@@ -62,10 +62,6 @@ for (let i = 1; i <= 6; i++) {
 const likeButtons = document.getElementsByClassName('like-button'); // like buttons
 const likeCounters = document.getElementsByClassName('js-likes-counter'); // like counters
 const imgContainer = document.getElementsByClassName('post__image'); // img container
-
-console.log(socialPosts);
-
-console.log(imgContainer);
 
 // removes img tag if img is an empty string
 for (let i = 0; i < socialPosts.length; i++) {
@@ -92,17 +88,17 @@ function renderObj(obj) {
             <div class="post__header">
                 <div class="post-meta">                    
                     <div class="post-meta__icon">
-                        <img class="profile-pic" src="${obj.profilePicture}" alt="${obj.autore}">                    
+                        <img class="profile-pic" src="${obj.profilePicture}" alt="${obj.author}">                    
                     </div>
                     <div class="post-meta__data">
-                        <div class="post-meta__author">${obj.autore}</div>
+                        <div class="post-meta__author">${obj.author}</div>
                         <div class="post-meta__time">${obj.data}</div>
                     </div>                    
                 </div>
             </div>
-            <div class="post__text">${obj.testo}</div>
+            <div class="post__text">${obj.text}</div>
             <div class="post__image">
-                <img src="${obj.immagine}" alt="">
+                <img src="${obj.image}" alt="">
             </div>
             <div class="post__footer">
                 <div class="likes js-likes">
