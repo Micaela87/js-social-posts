@@ -65,7 +65,7 @@ const imgContainer = document.getElementsByClassName('post__image'); // img cont
 
 // removes img tag if img is an empty string
 for (let i = 0; i < socialPosts.length; i++) {
-    if (socialPosts[i].immagine === '') {
+    if (socialPosts[i].image === '') {
         imgContainer[i].removeChild(imgContainer[i].children[0]);
     }
 }
